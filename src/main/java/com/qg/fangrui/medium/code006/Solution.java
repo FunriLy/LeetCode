@@ -10,6 +10,7 @@ public class Solution {
 
     /*
     最开始完全看不懂题目规则，参考资料 http://www.cnblogs.com/springfor/p/3889414.html
+    参考资料题目解法有错，已经修复
      */
 
     /**
@@ -22,7 +23,7 @@ public class Solution {
         if (s == null || numRows<=0) {
             return null;
         }
-        if (s.length() <= 1) {
+        if (s.length() <= 1 || numRows == 1) {
             return s;
         }
 
@@ -32,7 +33,7 @@ public class Solution {
         for (int i=0; i<numRows; i++) {
             for (int j=i; j<s.length(); j+=size) {
                 str.append(s.charAt(j));
-                if (i!=0 && j!=numRows-1) {
+                if (i!=0 && i!=numRows-1) {
                     int temp = size + j - 2 * i;
                     if (temp < s.length()) {
                         str.append(s.charAt(temp));
@@ -45,6 +46,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(convert("PAHNAPLSIIGYIR", 3));
+        System.out.println(convert("abcde", 2));
     }
 }
