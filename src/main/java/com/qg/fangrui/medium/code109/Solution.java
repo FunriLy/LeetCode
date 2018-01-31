@@ -12,6 +12,11 @@ import com.qg.fangrui.structure.TreeNode;
 public class Solution {
 
     /**
+     * 记录当前操作链表
+     */
+    private ListNode current;
+
+    /**
      * 将给定数组构造平衡搜索二叉树
      * @param head 排序数组
      * @return 二叉树根节点
@@ -44,6 +49,59 @@ public class Solution {
         return node;
     }
 
+    /**
+     * 获得链表长度
+     * @param head 链表头结点
+     * @return 返回链表长度
+     */
+    private int getSize(ListNode head){
+        int size = 0;
+        while(head != null){
+            size++;
+            head = head.next;
+        }
+        return size;
+    }
+
+    /**
+     * 根据列表长度构造二叉树
+     * @param size 链表长度
+     * @return 二叉树根节点
+     */
+    private TreeNode sortedListToBSTHelper(int size){
+        if (size <= 0){
+            return null;
+        }
+
+        // 构造左子树
+        TreeNode left = sortedListToBSTHelper(size / 2);
+        // 构造当前结点
+        TreeNode root = new TreeNode(current.val);
+        // 链表指针移动
+        current = current.next;
+        // 构造右子树
+        TreeNode right = sortedListToBSTHelper(size - size / 2 - 1);
+        root.left = left;
+        root.right = right;
+
+        return root;
+    }
+
+    /**
+     * 将给定数组构造平衡搜索二叉树
+     * 更加高效的方法
+     * @param head 排序数组
+     * @return 二叉树根节点
+     */
+    private TreeNode sortedListToBSTTwo(ListNode head) {
+        if (head == null){
+            return null;
+        }
+        current = head;
+        int size = getSize(head);
+        return sortedListToBSTHelper(size);
+    }
+
     public static void main(String[] args) {
         ListNode n1 = new ListNode(1);
         ListNode n2 = new ListNode(2);
@@ -62,7 +120,13 @@ public class Solution {
         n6.next = n7;
         ListNode.print(n1);
 
+        Solution solution = new Solution();
+        TreeNode root = solution.sortedListToBSTTwo(n1);
+        TreeNode.print(root);
+
         TreeNode node = sortedListToBST(n1);
         TreeNode.print(node);
+
+
     }
 }
