@@ -8,10 +8,10 @@ package com.qg.fangrui.structure;
  */
 public class TreeLinkNode {
 
-    private int val;
-    TreeLinkNode left;
-    TreeLinkNode right;
-    TreeLinkNode next;
+    public int val;
+    public TreeLinkNode left;
+    public TreeLinkNode right;
+    public TreeLinkNode next;
     public TreeLinkNode(int v){
         val = v;
     }
